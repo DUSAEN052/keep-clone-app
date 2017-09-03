@@ -27,7 +27,6 @@
       </md-dialog>
 
       <md-button class="md-primary md-raised" id="custom" @click="openDialog('dialog1')">Add New Note</md-button>
-    </md-button>
   </md-toolbar> <!-- Here is the cutoff -->
   <div class="content">
     <md-layout md-gutter=16>
@@ -36,7 +35,7 @@
       <md-card md-with-hover>
         <md-card-header>
           <div class="md-title">{{ note.title }}</div>
-          <div class="md-subhead">Subtitle here</div>
+          <!--<div class="md-subhead">Subtitle here</div>-->
         </md-card-header>
 
         <md-card-content>
@@ -57,24 +56,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-
-class NoteClient{
-
-  getNote(id) {
-    return axios.get(`http://localhost:3000/note/${id}`);
-  }
-  getAllNotes() {
-    return axios.get('http://localhost:3000/notes');
-  }
-  createNote(note) {
-    return axios.post('http://localhost:3000/note', note);
-  }
-  deleteNote(id) {
-    return axios.delete(`http://localhost:3000/note/${id}`);
-  }
-}
+import NoteClient from './client/client.js'
 let noteClient = new NoteClient();
 
 export default {
@@ -95,12 +77,12 @@ export default {
   methods: {
     addNote() {
       let self = this;
-      console.log("Hello1");
       noteClient.createNote({
         title: self.prompt.titleField,
         body: self.prompt.bodyField
       })
       .then(function (response) {
+        self.notes.push(response.data);
         console.log(response);
       })
       .catch(function (response) {
