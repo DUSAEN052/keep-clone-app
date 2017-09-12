@@ -31,6 +31,7 @@
     <div class="content">
       <md-layout md-gutter=16>
         <md-layout v-for="note in notes" v-bind:key="note.title">
+
           <md-card md-with-hover>
             <md-card-header>
               <div class="md-title">{{ note.title }}</div>
@@ -55,7 +56,7 @@
 </template>
 
 <script>
-import NoteClient from './client/client.js'
+import NoteClient from '../client/client.js'
 let noteClient = new NoteClient();
 
 export default {
